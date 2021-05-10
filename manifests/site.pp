@@ -9,7 +9,6 @@ class base {
     gpgcheck    => 1,
     gpgkey      => 'https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch',
     enabled     => 1,
-    autorefresh => 1,
     type        => 'rpm-md',
   }
 
