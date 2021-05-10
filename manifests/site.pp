@@ -32,6 +32,11 @@ class base {
 <% end -%>
 END
 
+  file { '/etc/hosts':
+    ensure  => file,
+    content => inline_template($host_template)
+  }
+
   $tags =  lookup("terraform.instances.${::hostname}.tags")
   $cluster_name = lookup('terraform.data.cluster_name')
   $is_master = 'master' in $tags
