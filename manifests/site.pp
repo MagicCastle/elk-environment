@@ -44,7 +44,7 @@ END
   $is_ingest = 'ingest' in $tags
   $master_ips = lookup("terraform.tag_ip.master")
 
-  file { '/etc/elasticsearch/elasticsearch.yaml':
+  file { '/etc/elasticsearch/elasticsearch.yml':
     owner   => 'root',
     group   => 'elasticsearch',
     content => @("END"),
