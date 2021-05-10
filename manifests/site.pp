@@ -3,6 +3,14 @@ class base {
   package { 'java-11-openjdk-devel': }
   package { ['wget', 'unzip']: }
 
+  yumrepo { 'elasticsearch-7.x':
+    descr    => 'Elasticsearch repository for 7.x packages',
+    baseurl  => 'https://artifacts.elastic.co/packages/oss-7.x/yum',
+    gpgcheck => 1,
+    gpgkey   => 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
+    enabled  => 1,
+  }
+
   yumrepo { 'opendistroforelasticsearch-artifacts-repo':
     descr    => 'Release RPM artifacts of OpenDistroForElasticsearch',
     baseurl  => 'https://d3g5vo6xdbdb9a.cloudfront.net/yum/noarch/',
@@ -10,6 +18,7 @@ class base {
     gpgkey   => 'https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch',
     enabled  => 1,
   }
+
 
   $version = '1.13.2'
   package { "opendistroforelasticsearch-${version}": }
