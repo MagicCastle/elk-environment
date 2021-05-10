@@ -4,11 +4,11 @@ class base {
   package { ['wget', 'unzip']: }
 
   yumrepo { 'opendistroforelasticsearch-artifacts-repo':
-    name        => 'Release RPM artifacts of OpenDistroForElasticsearch',
-    baseurl     => 'https://d3g5vo6xdbdb9a.cloudfront.net/yum/noarch/',
-    gpgcheck    => 1,
-    gpgkey      => 'https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch',
-    enabled     => 1,
+    descr    => 'Release RPM artifacts of OpenDistroForElasticsearch',
+    baseurl  => 'https://d3g5vo6xdbdb9a.cloudfront.net/yum/noarch/',
+    gpgcheck => 1,
+    gpgkey   => 'https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch',
+    enabled  => 1,
   }
 
   $version = '1.13.2'
