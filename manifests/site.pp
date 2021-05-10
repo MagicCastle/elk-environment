@@ -49,12 +49,13 @@ END
     group   => 'elasticsearch',
     content => @("END"),
 cluster.name: ${cluster_name}
+cluster.initial_master_nodes: ${master_ips}
+discovery.seed_hosts: ${master_ips}
+network.host: ${::ipaddress}
 node.name: ${hostname}
 node.master: ${is_master}
 node.data: ${is_data}
 node.ingest: ${is_ingest}
-network.host: ${::ipaddress}
-discovery.seed_hosts: ${master_ips}
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 opendistro_security.disabled: true
