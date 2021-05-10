@@ -55,6 +55,7 @@ node.data: ${is_data}
 node.ingest: ${is_ingest}
 network.host: ${::ipaddress}
 discovery.seed_hosts: ${master_ips}
+path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 opendistro_security.disabled: true
 END
