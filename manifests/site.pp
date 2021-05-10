@@ -19,9 +19,10 @@ class base {
     enabled  => 1,
   }
 
-
   $version = '1.13.2'
-  package { "opendistroforelasticsearch-${version}": }
+  package { 'elasticsearch':
+    name => "opendistroforelasticsearch-${version}"
+  }
 
   $instances = lookup('terraform.instances')
   $host_template = @(END)
@@ -31,6 +32,36 @@ class base {
 <% end -%>
 END
 
+  $tags =  lookup("terraform.instances.${::hostname}.tags")
+  $cluster_name = lookup('terraform.data.cluster_name')
+  $is_master = 'master' in $tags
+  $is_data = 'data' in $tags
+  $is_ingest = 'ingest' in $tags
+  $master_ips = lookup("terraform.tag_ip.master")
+
+  file { '/etc/elasticsearch/elasticsearch.yaml':
+    owner   => 'root',
+    group   => 'elasticsearch',
+    content => @("END")
+cluster.name: ${cluster_name}
+node.name: ${hostname}
+node.master: ${is_master}
+node.data: ${is_data}
+node.ingest: ${is_ingest}
+network.host: ${::ipadress}
+discovery.seed_hosts: ${master_ips}
+END
+    mode    => '0660',
+    require => Package['elasticsearch']
+  }
+
+  service { 'elasticsearch':
+    ensure => running,
+    enable => true,
+    subscribe => [
+      File['/etc/elasticsearch/elasticsearch.yaml'],
+    ]
+  }
 }
 
 node default {
