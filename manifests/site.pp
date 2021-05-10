@@ -53,8 +53,10 @@ node.name: ${hostname}
 node.master: ${is_master}
 node.data: ${is_data}
 node.ingest: ${is_ingest}
-network.host: ${::ipadress}
+network.host: ${::ipaddress}
 discovery.seed_hosts: ${master_ips}
+path.logs: /var/log/elasticsearch
+opendistro_security.disabled: true
 END
     mode    => '0660',
     require => Package['elasticsearch']
@@ -64,7 +66,7 @@ END
     ensure => running,
     enable => true,
     subscribe => [
-      File['/etc/elasticsearch/elasticsearch.yaml'],
+      File['/etc/elasticsearch/elasticsearch.yml'],
     ]
   }
 }
