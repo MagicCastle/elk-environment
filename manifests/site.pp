@@ -42,7 +42,7 @@ END
   file { '/etc/elasticsearch/elasticsearch.yaml':
     owner   => 'root',
     group   => 'elasticsearch',
-    content => @("END")
+    content => @("END"),
 cluster.name: ${cluster_name}
 node.name: ${hostname}
 node.master: ${is_master}
